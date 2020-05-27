@@ -20,22 +20,11 @@ export default function Home({ allPostsData }) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-      <section className={utilStyles.headingMd}>
-        <p>[I think and I code things.]</p>
-      </section>
 
       <Link href="/profile">
         <a>About me</a>
       </Link>
 
-      <a href="https://dev.to/mwarger">
-        <img
-          src="https://d2fltix0v2e0sb.cloudfront.net/dev-badge.svg"
-          alt="Mat Warger's DEV Profile"
-          height="30"
-          width="30"
-        />
-      </a>
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <ul className={utilStyles.list}>
