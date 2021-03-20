@@ -1,0 +1,32 @@
+{
+  "title": "mw.codes",
+  "titleTemplate": "%s | Mat",
+  "description": "My weblog",
+  "favicon": "/favicon.ico",
+  "additionalMetaTags": [
+    { "property": "author", "content": "mat warger" },
+    {
+      "property": "keywords",
+      "content": "developer graphql react consulting aws hasura"
+    }
+  ],
+  "twitter": {
+    "cardType": "summary",
+    "handle": "mwarger",
+    "site": "mwarger"
+  },
+  "openGraph": {
+    "type": "website",
+    "site_name": "mw.codes",
+    "profile": {
+      "firstName": "Mat"
+    },
+    "images": [
+      {
+        "url": "/images/og.jpg",
+        "width": 1280,
+        "height": 720
+      }
+    ]
+  }
+}

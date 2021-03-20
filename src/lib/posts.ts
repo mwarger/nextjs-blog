@@ -4,9 +4,10 @@ import matter from 'gray-matter'
 import remark from 'remark'
 import html from 'remark-html'
 
-const postsDirectory = path.join(process.cwd(), 'posts')
+const postsDirectory = path.join(process.cwd(), 'src/posts')
+console.log('postsdirectory', postsDirectory)
 
-export function getSortedPostsData() {
+export async function getSortedPostsData() {
   // Get file names under /posts
   const fileNames = fs.readdirSync(postsDirectory)
   const allPostsData = fileNames.map((fileName) => {
@@ -24,8 +25,9 @@ export function getSortedPostsData() {
     return {
       id,
       ...matterResult.data,
-    }
+    } as { id: string; date: string; title: string }
   })
+
   // Sort posts by date
   return allPostsData.sort((a, b) => {
     if (a.date < b.date) {
@@ -61,7 +63,7 @@ export function getAllPostIds() {
   })
 }
 
-export async function getPostData(id) {
+export async function getPostData(id: string) {
   const fullPath = path.join(postsDirectory, `${id}.md`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
@@ -82,25 +84,18 @@ export async function getPostData(id) {
   }
 }
 
-/**
- * 
- * 
-import fetch from 'node-fetch'
+// export async function getSortedPostsData() {
+//   const res = await fetch('https://dev.to/api/articles?username=mwarger')
+//   const allPostsData = await res.json()
+//   console.log('json', allPostsData)
+//   // Get file names under /posts
 
-export async function getSortedPostsData() {
-  const res = await fetch('https://dev.to/api/articles?username=mwarger')
-  const allPostsData = await res.json()
-  console.log('json', allPostsData)
-  // Get file names under /posts
-
-  // Sort posts by date
-  return allPostsData.sort((a, b) => {
-    if (a.published_timestamp < b.published_timestamp) {
-      return 1
-    } else {
-      return -1
-    }
-  })
-}
-
- */
+//   // Sort posts by date
+//   return allPostsData.sort((a, b) => {
+//     if (a.published_timestamp < b.published_timestamp) {
+//       return 1
+//     } else {
+//       return -1
+//     }
+//   })
+// }
