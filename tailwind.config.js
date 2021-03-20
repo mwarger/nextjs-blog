@@ -1,3 +1,5 @@
+const typography = require('@tailwindcss/typography')
+
 module.exports = {
   darkMode: 'class',
   purge: {
@@ -7,7 +9,6 @@ module.exports = {
     },
   },
   theme: {
-    typography: (theme) => ({}),
     extend: {
       colors: {},
       typography: (theme) => ({
@@ -22,5 +23,5 @@ module.exports = {
   variants: {
     typography: ['dark'],
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [],
 }

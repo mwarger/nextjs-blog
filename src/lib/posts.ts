@@ -1,11 +1,10 @@
 import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
-import remark from 'remark'
-import html from 'remark-html'
+import renderToString from 'next-mdx-remote/render-to-string'
+import Code from '../components/Code'
 
 const postsDirectory = path.join(process.cwd(), 'src/posts')
-console.log('postsdirectory', postsDirectory)
 
 export async function getSortedPostsData() {
   // Get file names under /posts
@@ -63,24 +62,27 @@ export function getAllPostIds() {
   })
 }
 
+const components = {
+  code: Code,
+  // h1: (props) => <h1 tw="text-xl font-semibold" {...props} />,
+  // h2: (props) => <h2 tw="text-lg font-normal" {...props} />,
+  // p: (props) => <p {...props} />,
+}
+
 export async function getPostData(id: string) {
-  const fullPath = path.join(postsDirectory, `${id}.md`)
+  const fullPath = path.join(postsDirectory, `${id}`)
+
   const fileContents = fs.readFileSync(fullPath, 'utf8')
 
   // Use gray-matter to parse the post metadata section
-  const matterResult = matter(fileContents)
+  const { content, data } = matter(fileContents)
 
-  // Use remark to convert markdown into HTML string
-  const processedContent = await remark()
-    .use(html)
-    .process(matterResult.content)
-  const contentHtml = processedContent.toString()
+  const mdx = await renderToString(content, { components, scope: data })
 
   // Combine the data with the id
   return {
-    id,
-    contentHtml,
-    ...matterResult.data,
+    mdxSource: mdx,
+    frontMatter: data,
   }
 }
 
